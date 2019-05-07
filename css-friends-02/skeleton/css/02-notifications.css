@@ -1,0 +1,39 @@
+/* PHASE 2: Notifications */
+.badge {
+    padding: 5px 11px;
+    margin: 3px 11px;
+    background-color: black;
+    border-radius: 30px;
+    /* position: relative; */
+}
+
+.notif {
+    position: relative;
+}
+
+.notif_dropdown {
+    display:none;
+    position: absolute;
+    background-color:white;
+    color:black;
+    padding: 10px;
+    border: 2px solid lightgrey;
+}
+
+.notif_dropdown > li {
+    padding: 5px;
+    border: 2px solid gray;
+    display:block;
+}
+
+.notif_dropdown > li:hover {
+    background-color:gray;
+}
+
+.notif:hover .notif_dropdown{
+    display:block;
+}
+
+.header{
+    z-index: 1;
+}

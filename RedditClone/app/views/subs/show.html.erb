@@ -1,0 +1,67 @@
+<h3>Sub: <%= @sub.title %></h3>
+<h4>Description: <%= @sub.description %></h4>
+
+
+
+
+<form action="<%= sub_posts_url(@sub) %>" method="post">
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+<label for="title">Title: </label>
+<input type="text" name="post[title]">
+<br>
+
+<label for="url">Url: </label>
+<input type="text" name="post[url]">
+<br>
+
+<label for="content">Content: </label>
+<input type="text" name="post[content]">
+<br>
+
+
+<label>Subs:</label><br>
+
+  <input type="hidden" name="post[subs_id][]" value="">
+
+  <% Sub.all.each do |sub| %>
+    <label><%= sub.title %>
+      <input
+        type="checkbox"
+        value="<%= sub.id %>"
+        name="post[subs_id][]"
+        <%= "checked" if sub.id == @sub.id %> />
+    </label><br>
+  <% end %>
+
+<input type="submit" value="Post">
+
+
+</form>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>URL</th>
+    <th>Content</th>
+    <th>Delete?</th>
+  </tr>
+<% @post_subs.each do |post_sub|%>
+<tr>
+    <td><a href="<%= post_url(post_sub.post.id) %>"><%= post_sub.post.title %></a> </td>
+    <td><a href="<%= post_sub.post.url %>">Link</a></td>
+    <td><%= post_sub.post.content %></td>
+    <td>
+    <% if current_user.id == post_sub.post.user_id %>
+    <form action="<%= post_url(post_sub.post) %>" method="POST">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete Post">
+    
+    </form>
+    <% else %>
+        Not available
+    <% end %>
+    </td>
+    </tr>
+<% end %>
+</table>
